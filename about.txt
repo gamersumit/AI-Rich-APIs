@@ -1,0 +1,9 @@
+# dcoker integration
+
+commands :
+
+-- to build docker image
+docker build -t path/to/dir
+
+-- to verify if image is built or to list docker image
+docker image
