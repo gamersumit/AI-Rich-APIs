@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   django:
-    image: AI-Rich-APIs-docker:0.0.1 
+    image: ai-rich-apis-first-docker:0.0.1 
     build: .
     ports:
       - "8000:8000"
