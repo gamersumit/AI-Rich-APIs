@@ -11,16 +11,20 @@ class ChatView(generics.CreateAPIView):
             client = OpenAI(api_key = settings.OPENAI_API_KEY)
             
             # user's question
-            promt = request.data['question']
+            prompt = request.data['question']
+
+            # setup for the system
+            setup = request.data['setup']
 
             # open ai chat response
-            respone = client.completions.create(
-                model= "gpt-3.5-turbo",
-                prompt = prompt,
-                max_tokens =128,
-                temperature=0.5
-            )
-            
+            response = client.chat.completions.create(
+                        model="gpt-3.5-turbo",
+                        messages=[
+                            {"role": "system", "content": setup},
+                            {"role": "user", "content": prompt}
+                        ]
+                        )
+
             content = response.choices[0].message.content
             return Response({'answer' : content}, status=200)
 
