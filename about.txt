@@ -7,3 +7,8 @@ docker build -t path/to/dir
 
 -- to verify if image is built or to list docker image
 docker image
+
+-- to run a image
+docker run image_name
+-- or if tagged
+docker run image_name:tag 
