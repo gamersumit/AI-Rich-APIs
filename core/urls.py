@@ -21,4 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('chatbot/', include('chatbot.urls')),
     path('faceswap/', include('faceswap.urls')),
+    # rest framework inbuilt
+    path('rest/', include('rest_framework.urls', namespace='rest_framework')),
 ]
