@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   AI-Rich-APIs:
-    image: ai-rich-apis-docker:inital 
+    image: chat:inital 
     build: .
     ports:
       - "8000:8000"

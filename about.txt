@@ -1,8 +1,7 @@
 # dcoker integration
-
 commands :
 
--- to build docker image
+-- to build docker image_name:tag path_to_dir
 docker build -t path/to/dir
 
 -- to verify if image is built or to list docker image
@@ -12,3 +11,42 @@ docker image
 docker run image_name
 -- or if tagged
 docker run image_name:tag 
+
+-- create and run a docker container
+docker run -p 8000:8000 image
+docker run --name chat_container_1 -d -p 8000:8000 chat:initial
+docker run --env-file .env -d -p 8000:8000 your_image_name
+
+docker run --name temp -p 8000:8000 -v "${pwd}:/AI_Rich_APIs" chat:initial
+
+-- Exec into running container
+docker exec -it your_container_name bash
+
+-- stop the container
+docker stop your_container_name
+
+-- start again
+docker start container_name_or_id
+docker start -a container_name_or_id new_command
+
+
+-- exit from exec container
+exit
+
+-- list running docker container
+docker ps
+
+-- list all docker containers
+docker ps -a
+
+-- to delete all stopped containers 
+docker container prune
+
+-- to remove/delete a specific stopped container
+docker rm name_or_id_or_first3letters_of_id_of_container
+
+-- to remove/delete a specific running/stopped container
+docker rm name_or_id_or_first3letters_of_id_of_container --force
+
+
+
