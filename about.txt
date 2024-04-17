@@ -50,3 +50,14 @@ docker rm name_or_id_or_first3letters_of_id_of_container --force
 
 
 
+-- to rename an image
+docker tag <old_image_name>:<old_tag> <new_image_name>:<new_tag>
+docker rmi <old_image_name>:<old_tag>
+
+
+-- initalize image for docker hub
+docker tag <old_image_name>:<old_tag> username/<new_image_name>:<new_tag>
+docker tag <old_image_name>:<old_tag> gamersumit/<new_image_name>:<new_tag>
+
+-- push 
+docker push gamersumit/image:tag
