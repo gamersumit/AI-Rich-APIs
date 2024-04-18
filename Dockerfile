@@ -16,9 +16,8 @@ ADD . /AI-Rich-APIs/
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-
 # Collect static files
-RUN python manage.py collectstatic --noinput
+# RUN python manage.py collectstatic --noinput
 
 # Expose port 8000
 EXPOSE 8000
