@@ -15,7 +15,7 @@ ADD . /AI-Rich-APIs/
 # Install dependencies
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
-
+RUN apt-get update && apt-get install ffmpeg libsm6 libxext6 -y
 # Collect static files
 # RUN python manage.py collectstatic --noinput
 
