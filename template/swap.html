@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Drag and Drop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .box-container {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            margin-bottom: 20px;
+            /* Add some space between the boxes and the buttons */
+        }
+
+        .box {
+            width: 200px;
+            height: 200px;
+            border: 2px dashed #ccc;
+            margin: 0 5px;
+            /* Adjust margin as needed */
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f9f9f9;
+            flex-direction: column;
+            text-align: center;
+            color: #777;
+            overflow: hidden;
+            /* Ensure image does not overflow the box */
+            position: relative;
+            /* Add relative positioning */
+        }
+
+        .box img {
+            min-width: auto;
+            min-height: 100%;
+            max-width: 100%;
+            /* Added to prevent stretching */
+            max-height: 100%;
+            /* Added to prevent stretching */
+        }
+
+        .sign {
+            font-size: 24px;
+            margin: 100px 30px; /* Center horizontally and vertically */
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 200px;
+            /* Adjust width based on your needs */
+        }
+
+        .button {
+            cursor: pointer;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box-container">
+            <div class="box" id="singleImageDropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <img src="placeholder-icon.png" alt="Drop Icon">
+                <p>Drag & Drop Image Here</p>
+            </div>
+            <span class="sign">+</span>
+            <div class="box" id="displayedImage">
+                <!-- Image to be displayed -->
+                <img src="placeholder-icon.png" alt="Displayed Image">
+            </div>
+            <span class="sign">=</span>
+            <div class="box" id="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <img src="placeholder-icon.png" alt="Drop Icon">
+                <p>Drag & Drop Image Here</p>
+            </div>
+        </div>
+        <div class="buttons-container">
+            <button class="button" onclick="previousImage()">Previous</button>
+            <button class="button" onclick="nextImage()">Next</button>
+        </div>
+    </div>
+
+    <script>
+        let images = [
+            "https://res.cloudinary.com/doxio9q0g/image/upload/v1716194432/public/avatar/_arijit_uecvr4_nluax3.jpg",
+            "https://via.placeholder.com/200",
+            "https://res.cloudinary.com/doxio9q0g/image/upload/v1716194432/public/avatar/_arijit_uecvr4_nluax3.jpg"
+        ];
+        let currentIndex = 0;
+
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            const files = event.dataTransfer.files;
+            if (files.length > 0 && files[0].type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    event.target.innerHTML = '<img src="' + e.target.result + '" alt="Dropped Image">';
+                };
+                reader.readAsDataURL(files[0]);
+            } else {
+                const data = event.dataTransfer.getData('text/plain');
+                if (event.target.classList.contains('box')) {
+                    event.target.innerHTML = data;
+                } else {
+                    const url = event.target.getAttribute('data-url');
+                    event.target.innerHTML = '<img src="' + url + '" alt="Dropped Image">';
+                }
+            }
+        }
+
+        function displayImage(index) {
+            document.getElementById('displayedImage').innerHTML = `<img src="${images[index]}" alt="Displayed Image">`;
+        }
+
+        function previousImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            displayImage(currentIndex);
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            displayImage(currentIndex);
+        }
+
+        displayImage(currentIndex);
+    </script>
+</body>
+
+</html>
