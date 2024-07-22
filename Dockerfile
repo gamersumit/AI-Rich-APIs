@@ -7,10 +7,10 @@ WORKDIR /AI-Rich-APIs
 
 COPY . /AI-Rich-APIs/
 
-RUN apt-get update && \
-    apt-get install -y ffmpeg libsm6 libxext6 && \
-    pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+RUN apt-get update \
+    && apt-get install -y ffmpeg libsm6 libxext6 build-essential \
+    && pip install --upgrade pip \
+    && pip install --no-cache-dir -r /AI-Rich-APIs/requirements.txt
 
 
 EXPOSE 8000
