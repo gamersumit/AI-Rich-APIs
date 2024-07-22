@@ -5,3 +5,4 @@ staticfiles/
 .dockerignore
 .docker-compose
 Dockerfile
+media/
