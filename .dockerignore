@@ -1,3 +1,8 @@
 chatenv/
+.env/
 env/
 staticfiles/
+.dockerignore
+.docker-compose
+Dockerfile
+media/
