@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework import status, generics
 from faceswap.models import FaceSwap
 from faceswap.serializers import FaceSwapSerializer
-from faceswap.service import InsightFaceService
+from faceswap.service import InsightFaceService, TextOverlay
 from utils.cloudinary import Cloudinary 
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
@@ -55,6 +55,17 @@ class FaceSwapperAPIView(APIView):
         except Exception as e:
             return Response({'error': str(e)}, status=400)
 
+
+class AddTextToImage(APIView):
+    def post(self, request):
+        overlay = TextOverlay()
+        print("here")
+        image = request.FILES['image']
+        text = '''Here's Tommy Tomato, round and red,
+Bouncing happily near the shed.
+Aisha laughs, 'Catch me if you can,
+Tommy's such a funny man!'''
+        return overlay.overlay_text_on_image(image, text)
 
 class GetSwappedImage(generics.RetrieveAPIView):
     serializer_class = FaceSwapSerializer
